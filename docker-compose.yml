@@ -1,0 +1,51 @@
+# ─── Employee Management System — App Docker ──────────────────────────────────
+#
+# Menggunakan container MySQL yang sudah berjalan (mysql8).
+#
+# Prasyarat (sekali saja):
+#   docker network create ems-network
+#   docker network connect ems-network mysql8
+#
+# Usage:
+#   docker compose up --build        # build image lalu jalankan
+#   docker compose up -d --build     # jalankan di background
+#   docker compose logs -f app       # lihat log app
+#   docker compose down              # stop
+#
+# App berjalan di: http://localhost:3000
+#   Email   : admin@example.com
+#   Password: admin123
+# ──────────────────────────────────────────────────────────────────────────────
+
+services:
+
+  # ── Node.js App ─────────────────────────────────────────────────────────────
+  app:
+    build:
+      context: ./nodeapp
+      dockerfile: Dockerfile
+    container_name: ems-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: mysql8          # nama container MySQL yang sudah ada
+      DB_USER: root
+      DB_PASSWORD: rootpassword
+      DB_NAME: playwright
+      DB_PORT: 3306
+      SESSION_SECRET: docker-ems-secret-key-2024
+      PORT: 3000
+    # setup.js: buat database + tabel + admin (idempotent, aman diulang)
+    command: sh -c "node setup.js && node app.js"
+    networks:
+      - ems-network
+
+# ── Named volumes ──────────────────────────────────────────────────────────────
+volumes:
+  uploads:
+
+# ── Network (sudah dibuat, mysql8 sudah terhubung) ────────────────────────────
+networks:
+  ems-network:
+    external: true

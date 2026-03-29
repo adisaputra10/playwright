@@ -1,0 +1,265 @@
+<%- include('../partials/header', {title: 'Tambah Karyawan'}) %>
+<%- include('../partials/navbar') %>
+
+<div class="container py-4">
+  <%- include('../partials/messages') %>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold mb-0"><i class="bi bi-person-plus"></i> Tambah Karyawan</h4>
+    <a href="/employees" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Kembali</a>
+  </div>
+
+  <form action="/employees" method="POST" enctype="multipart/form-data">
+
+    <!-- Bagian 1: Identitas -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-header bg-primary text-white fw-semibold">
+        <i class="bi bi-person-badge"></i> 1. Identitas Karyawan
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">ID Karyawan (NIK) <span class="text-danger">*</span></label>
+            <input type="text" name="employee_id" class="form-control" placeholder="cth: EMP001" required>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">Nama Depan <span class="text-danger">*</span></label>
+            <input type="text" name="first_name" class="form-control" placeholder="Nama depan" required>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">Nama Belakang <span class="text-danger">*</span></label>
+            <input type="text" name="last_name" class="form-control" placeholder="Nama belakang" required>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">Jenis Kelamin <span class="text-danger">*</span></label>
+            <select name="gender" class="form-select" required>
+              <option value="">-- Pilih --</option>
+              <option value="male">Laki-laki</option>
+              <option value="female">Perempuan</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Email</label>
+            <input type="email" name="email" class="form-control" placeholder="email@example.com">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Nomor Telepon</label>
+            <input type="text" name="phone" class="form-control" placeholder="08xxxxxxxxxx">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Nomor KTP (NIK)</label>
+            <input type="text" name="nik" class="form-control" placeholder="16 digit NIK KTP" maxlength="20">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Tempat Lahir</label>
+            <input type="text" name="birth_place" class="form-control" placeholder="Kota kelahiran">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Tanggal Lahir</label>
+            <input type="date" name="birth_date" class="form-control">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Golongan Darah</label>
+            <select name="blood_type" class="form-select">
+              <option value="">-- Pilih --</option>
+              <option value="A">A</option><option value="B">B</option>
+              <option value="AB">AB</option><option value="O">O</option>
+              <option value="A+">A+</option><option value="A-">A-</option>
+              <option value="B+">B+</option><option value="B-">B-</option>
+              <option value="AB+">AB+</option><option value="AB-">AB-</option>
+              <option value="O+">O+</option><option value="O-">O-</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">Agama</label>
+            <select name="religion" class="form-select">
+              <option value="">-- Pilih --</option>
+              <option value="Islam">Islam</option>
+              <option value="Kristen">Kristen</option>
+              <option value="Katholik">Katholik</option>
+              <option value="Hindu">Hindu</option>
+              <option value="Buddha">Buddha</option>
+              <option value="Konghucu">Konghucu</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">Status Pernikahan</label>
+            <select name="marital_status" class="form-select">
+              <option value="single">Belum Menikah</option>
+              <option value="married">Menikah</option>
+              <option value="divorced">Cerai</option>
+              <option value="widowed">Janda/Duda</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">Kewarganegaraan</label>
+            <input type="text" name="nationality" class="form-control" value="Indonesia">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">NPWP</label>
+            <input type="text" name="npwp" class="form-control" placeholder="xx.xxx.xxx.x-xxx.xxx">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 2: Alamat -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-header bg-info text-white fw-semibold">
+        <i class="bi bi-geo-alt"></i> 2. Alamat
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label fw-semibold">Alamat Lengkap</label>
+            <textarea name="address" class="form-control" rows="2" placeholder="Jalan, RT/RW, Kelurahan, Kecamatan"></textarea>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Kota</label>
+            <input type="text" name="city" class="form-control" placeholder="Nama kota">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Provinsi</label>
+            <input type="text" name="province" class="form-control" placeholder="Nama provinsi">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Kode Pos</label>
+            <input type="text" name="postal_code" class="form-control" placeholder="5 digit kode pos" maxlength="10">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 3: Data Pekerjaan -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-header bg-success text-white fw-semibold">
+        <i class="bi bi-briefcase"></i> 3. Data Pekerjaan
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Departemen</label>
+            <input type="text" name="department" class="form-control" placeholder="cth: IT, HRD, Finance">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Jabatan / Posisi</label>
+            <input type="text" name="position" class="form-control" placeholder="cth: Software Engineer">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Status Kepegawaian</label>
+            <select name="employment_status" class="form-select">
+              <option value="permanent">Karyawan Tetap</option>
+              <option value="contract">Kontrak</option>
+              <option value="internship">Magang</option>
+              <option value="freelance">Freelance</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Tipe Kerja</label>
+            <select name="employment_type" class="form-select">
+              <option value="full-time">Full-Time</option>
+              <option value="part-time">Part-Time</option>
+              <option value="remote">Remote</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Tanggal Bergabung</label>
+            <input type="date" name="hire_date" class="form-control">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Akhir Kontrak</label>
+            <input type="date" name="contract_end_date" class="form-control">
+            <small class="text-muted">Kosongkan jika karyawan tetap</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 4: Data Keuangan -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-header bg-warning fw-semibold">
+        <i class="bi bi-cash-stack"></i> 4. Data Keuangan & Perbankan
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Gaji Pokok (Rp)</label>
+            <input type="number" name="salary" class="form-control" placeholder="0" min="0" step="1000">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Nama Bank</label>
+            <input type="text" name="bank_name" class="form-control" placeholder="cth: BCA, Mandiri, BNI">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Nomor Rekening</label>
+            <input type="text" name="bank_account" class="form-control" placeholder="Nomor rekening">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Nama Pemilik Rekening</label>
+            <input type="text" name="bank_account_holder" class="form-control" placeholder="Sesuai buku tabungan">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 5: Kontak Darurat -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-header bg-danger text-white fw-semibold">
+        <i class="bi bi-telephone-fill"></i> 5. Kontak Darurat
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Nama</label>
+            <input type="text" name="emergency_contact_name" class="form-control" placeholder="Nama kontak darurat">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Nomor Telepon</label>
+            <input type="text" name="emergency_contact_phone" class="form-control" placeholder="08xxxxxxxxxx">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Hubungan</label>
+            <input type="text" name="emergency_contact_relation" class="form-control" placeholder="cth: Istri, Orang Tua">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 6: Foto & Status -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-header bg-secondary text-white fw-semibold">
+        <i class="bi bi-camera"></i> 6. Foto & Status
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Foto Karyawan</label>
+            <input type="file" name="photo" class="form-control" accept="image/jpeg,image/png,image/gif">
+            <small class="text-muted">JPG/PNG/GIF, maks 2MB</small>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">Status Karyawan</label>
+            <select name="status" class="form-select">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+              <option value="resigned">Resigned</option>
+              <option value="terminated">Terminated</option>
+            </select>
+          </div>
+          <div class="col-md-5">
+            <label class="form-label fw-semibold">Catatan</label>
+            <textarea name="notes" class="form-control" rows="2" placeholder="Catatan tambahan (opsional)"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex gap-2 mb-4">
+      <button type="submit" class="btn btn-primary btn-lg"><i class="bi bi-save"></i> Simpan Karyawan</button>
+      <a href="/employees" class="btn btn-outline-secondary btn-lg">Batal</a>
+    </div>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>

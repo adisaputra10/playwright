@@ -1,0 +1,119 @@
+/* ========================================
+   Employee Management System - Custom CSS
+   ======================================== */
+
+body {
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* Navbar */
+.navbar-brand {
+  letter-spacing: 0.5px;
+}
+
+/* Cards */
+.card {
+  border-radius: 10px;
+}
+.card-header {
+  border-radius: 10px 10px 0 0 !important;
+  padding: 0.75rem 1.25rem;
+}
+
+/* Tables */
+.table thead th {
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+/* Badges */
+.badge {
+  font-weight: 500;
+  font-size: 0.78em;
+}
+
+/* Form labels */
+.form-label.fw-semibold {
+  font-size: 0.88rem;
+  color: #444;
+}
+
+/* Sidebar stats card */
+.stat-card-icon {
+  font-size: 2.5rem;
+  opacity: 0.3;
+}
+
+/* Photo preview */
+.photo-preview {
+  max-width: 120px;
+  max-height: 120px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Employee avatar circle */
+.avatar-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* Table w-40 helper */
+.w-40 { width: 40%; }
+
+/* Detail view table */
+.table-sm td {
+  padding: 0.35rem 0.5rem;
+}
+
+/* Alert auto dismiss */
+.alert {
+  border-radius: 8px;
+}
+
+/* Footer */
+.footer {
+  font-size: 0.85rem;
+}
+
+/* Progress bar */
+.progress {
+  border-radius: 10px;
+  background-color: #e9ecef;
+}
+
+/* Responsive table in mobile */
+@media (max-width: 768px) {
+  .table-responsive {
+    font-size: 0.85rem;
+  }
+  .btn-group-sm > .btn {
+    padding: 0.2rem 0.4rem;
+  }
+}
+
+/* Input focus ring */
+.form-control:focus,
+.form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+/* Hover row */
+.table-hover > tbody > tr:hover > * {
+  background-color: rgba(13, 110, 253, 0.04);
+}

@@ -1,0 +1,54 @@
+<%- include('../partials/header', {title: 'Registrasi'}) %>
+<%- include('../partials/navbar') %>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-5 col-lg-5">
+      <div class="card border-0 shadow">
+        <div class="card-body p-4">
+          <h4 class="fw-bold text-center mb-1"><i class="bi bi-person-plus text-success"></i> Daftar Akun</h4>
+          <p class="text-center text-muted small mb-4">Buat akun baru untuk mengakses EMS</p>
+          <%- include('../partials/messages') %>
+          <form action="/register" method="POST">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Nama Lengkap <span class="text-danger">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                <input type="text" name="name" class="form-control" placeholder="Nama lengkap" required autofocus>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                <input type="email" name="email" class="form-control" placeholder="email@example.com" required>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Password <span class="text-danger">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                <input type="password" name="password" class="form-control" placeholder="Minimal 6 karakter" required minlength="6">
+              </div>
+            </div>
+            <div class="mb-4">
+              <label class="form-label fw-semibold">Konfirmasi Password <span class="text-danger">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                <input type="password" name="confirm_password" class="form-control" placeholder="Ulangi password" required>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success w-100">
+              <i class="bi bi-person-check"></i> Daftar
+            </button>
+          </form>
+        </div>
+        <div class="card-footer text-center bg-light py-3">
+          <small>Sudah punya akun? <a href="/login" class="fw-semibold">Login</a></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

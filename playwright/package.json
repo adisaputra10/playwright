@@ -1,0 +1,21 @@
+{
+  "name": "ems-e2e-tests",
+  "version": "1.0.0",
+  "description": "End-to-end tests for Employee Management System",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:report": "npx playwright show-report playwright-report",
+    "test:open": "playwright test && npx playwright show-report playwright-report",
+    "test:auth": "playwright test tests/auth.spec.js",
+    "test:users": "playwright test tests/users.spec.js",
+    "test:employees": "playwright test tests/employees.spec.js",
+    "test:dashboard": "playwright test tests/dashboard.spec.js",
+    "docker:run": "docker compose up --build --exit-code-from playwright",
+    "docker:report": "docker compose run --rm playwright npx playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.51.0"
+  }
+}

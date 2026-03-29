@@ -1,0 +1,130 @@
+<%- include('../partials/header', {title: 'Manajemen Karyawan'}) %>
+<%- include('../partials/navbar') %>
+
+<div class="container-fluid py-4 px-4">
+  <%- include('../partials/messages') %>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold mb-0"><i class="bi bi-people"></i> Manajemen Karyawan</h4>
+    <a href="/employees/create" class="btn btn-primary"><i class="bi bi-person-plus"></i> Tambah Karyawan</a>
+  </div>
+
+  <!-- Filter & Search -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body py-3">
+      <form action="/employees" method="GET" class="row g-2 align-items-center">
+        <div class="col-md-4">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input type="text" name="search" class="form-control" placeholder="Nama, ID, email, jabatan..." value="<%= search %>">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <select name="department" class="form-select">
+            <option value="">Semua Departemen</option>
+            <% departments.forEach(d => { %>
+            <option value="<%= d.department %>" <%= selectedDept === d.department ? 'selected' : '' %>><%= d.department %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <select name="status" class="form-select">
+            <option value="">Semua Status</option>
+            <option value="active" <%= selectedStatus === 'active' ? 'selected' : '' %>>Active</option>
+            <option value="inactive" <%= selectedStatus === 'inactive' ? 'selected' : '' %>>Inactive</option>
+            <option value="resigned" <%= selectedStatus === 'resigned' ? 'selected' : '' %>>Resigned</option>
+            <option value="terminated" <%= selectedStatus === 'terminated' ? 'selected' : '' %>>Terminated</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary">Cari</button>
+          <a href="/employees" class="btn btn-outline-secondary ms-1">Reset</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="card border-0 shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-primary">
+          <tr>
+            <th width="40">#</th>
+            <th width="46">Foto</th>
+            <th>ID</th>
+            <th>Nama & Email</th>
+            <th>Departemen</th>
+            <th>Jabatan</th>
+            <th>Status Kerja</th>
+            <th>Status</th>
+            <th width="110">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (employees.length > 0) { %>
+            <% employees.forEach((emp, i) => { %>
+            <tr>
+              <td class="text-muted"><%= i + 1 %></td>
+              <td>
+                <% if (emp.photo) { %>
+                <img src="<%= emp.photo %>" class="rounded-circle" width="38" height="38" style="object-fit:cover" alt="">
+                <% } else { %>
+                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold" style="width:38px;height:38px;font-size:13px">
+                  <%= emp.first_name.charAt(0).toUpperCase() %><%= emp.last_name.charAt(0).toUpperCase() %>
+                </div>
+                <% } %>
+              </td>
+              <td><code class="small"><%= emp.employee_id %></code></td>
+              <td>
+                <a href="/employees/<%= emp.id %>" class="fw-semibold text-decoration-none">
+                  <%= emp.first_name %> <%= emp.last_name %>
+                </a>
+                <div class="small text-muted"><%= emp.email || '' %></div>
+              </td>
+              <td><small><%= emp.department || '-' %></small></td>
+              <td><small><%= emp.position || '-' %></small></td>
+              <td>
+                <span class="badge bg-secondary bg-opacity-75 text-dark small">
+                  <%= emp.employment_status %>
+                </span>
+              </td>
+              <td>
+                <span class="badge rounded-pill bg-<%=
+                  emp.status === 'active' ? 'success' :
+                  emp.status === 'resigned' ? 'warning' :
+                  emp.status === 'terminated' ? 'danger' : 'secondary'
+                %>">
+                  <%= emp.status %>
+                </span>
+              </td>
+              <td>
+                <div class="btn-group btn-group-sm">
+                  <a href="/employees/<%= emp.id %>" class="btn btn-outline-info" title="Detail"><i class="bi bi-eye"></i></a>
+                  <a href="/employees/<%= emp.id %>/edit" class="btn btn-outline-warning" title="Edit"><i class="bi bi-pencil"></i></a>
+                  <form action="/employees/<%= emp.id %>?_method=DELETE" method="POST" class="d-inline"
+                        onsubmit="return confirm('Hapus karyawan <%= emp.first_name %> <%= emp.last_name %>?')">
+                    <button class="btn btn-outline-danger rounded-0 rounded-end" title="Hapus"><i class="bi bi-trash"></i></button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            <% }) %>
+          <% } else { %>
+          <tr>
+            <td colspan="9" class="text-center text-muted py-5">
+              <i class="bi bi-inbox d-block fs-3 mb-2"></i>
+              Tidak ada data karyawan ditemukan
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer bg-white text-muted small">
+      Total: <strong><%= employees.length %></strong> karyawan ditemukan
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,265 @@
+<%- include('../partials/header', {title: title}) %>
+<%- include('../partials/navbar') %>
+
+<% const v = (field) => emp[field] !== null && emp[field] !== undefined ? emp[field] : '' %>
+<% const sel = (field, val) => emp[field] === val ? 'selected' : '' %>
+
+<div class="container py-4">
+  <%- include('../partials/messages') %>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold mb-0"><i class="bi bi-pencil"></i> Edit Karyawan</h4>
+    <a href="/employees/<%= emp.id %>" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Kembali</a>
+  </div>
+
+  <form action="/employees/<%= emp.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+
+    <!-- Bagian 1: Identitas -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-header bg-primary text-white fw-semibold">
+        <i class="bi bi-person-badge"></i> 1. Identitas Karyawan
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">ID Karyawan (NIK) <span class="text-danger">*</span></label>
+            <input type="text" name="employee_id" class="form-control" value="<%= v('employee_id') %>" required>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">Nama Depan <span class="text-danger">*</span></label>
+            <input type="text" name="first_name" class="form-control" value="<%= v('first_name') %>" required>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">Nama Belakang <span class="text-danger">*</span></label>
+            <input type="text" name="last_name" class="form-control" value="<%= v('last_name') %>" required>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">Jenis Kelamin <span class="text-danger">*</span></label>
+            <select name="gender" class="form-select" required>
+              <option value="male" <%= sel('gender','male') %>>Laki-laki</option>
+              <option value="female" <%= sel('gender','female') %>>Perempuan</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Email</label>
+            <input type="email" name="email" class="form-control" value="<%= v('email') %>">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Nomor Telepon</label>
+            <input type="text" name="phone" class="form-control" value="<%= v('phone') %>">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">NIK KTP</label>
+            <input type="text" name="nik" class="form-control" value="<%= v('nik') %>" maxlength="20">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Tempat Lahir</label>
+            <input type="text" name="birth_place" class="form-control" value="<%= v('birth_place') %>">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Tanggal Lahir</label>
+            <input type="date" name="birth_date" class="form-control" value="<%= emp.birth_date ? new Date(emp.birth_date).toISOString().split('T')[0] : '' %>">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Golongan Darah</label>
+            <select name="blood_type" class="form-select">
+              <option value="">-- Pilih --</option>
+              <% ['A','B','AB','O','A+','A-','B+','B-','AB+','AB-','O+','O-'].forEach(bt => { %>
+              <option value="<%= bt %>" <%= sel('blood_type',bt) %>><%= bt %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">Agama</label>
+            <select name="religion" class="form-select">
+              <option value="">-- Pilih --</option>
+              <% ['Islam','Kristen','Katholik','Hindu','Buddha','Konghucu','Lainnya'].forEach(r => { %>
+              <option value="<%= r %>" <%= sel('religion',r) %>><%= r %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">Status Pernikahan</label>
+            <select name="marital_status" class="form-select">
+              <option value="single" <%= sel('marital_status','single') %>>Belum Menikah</option>
+              <option value="married" <%= sel('marital_status','married') %>>Menikah</option>
+              <option value="divorced" <%= sel('marital_status','divorced') %>>Cerai</option>
+              <option value="widowed" <%= sel('marital_status','widowed') %>>Janda/Duda</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">Kewarganegaraan</label>
+            <input type="text" name="nationality" class="form-control" value="<%= v('nationality') || 'Indonesia' %>">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">NPWP</label>
+            <input type="text" name="npwp" class="form-control" value="<%= v('npwp') %>">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 2: Alamat -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-header bg-info text-white fw-semibold">
+        <i class="bi bi-geo-alt"></i> 2. Alamat
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label fw-semibold">Alamat Lengkap</label>
+            <textarea name="address" class="form-control" rows="2"><%= v('address') %></textarea>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Kota</label>
+            <input type="text" name="city" class="form-control" value="<%= v('city') %>">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Provinsi</label>
+            <input type="text" name="province" class="form-control" value="<%= v('province') %>">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Kode Pos</label>
+            <input type="text" name="postal_code" class="form-control" value="<%= v('postal_code') %>" maxlength="10">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 3: Pekerjaan -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-header bg-success text-white fw-semibold">
+        <i class="bi bi-briefcase"></i> 3. Data Pekerjaan
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Departemen</label>
+            <input type="text" name="department" class="form-control" value="<%= v('department') %>">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Jabatan / Posisi</label>
+            <input type="text" name="position" class="form-control" value="<%= v('position') %>">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Status Kepegawaian</label>
+            <select name="employment_status" class="form-select">
+              <option value="permanent" <%= sel('employment_status','permanent') %>>Karyawan Tetap</option>
+              <option value="contract" <%= sel('employment_status','contract') %>>Kontrak</option>
+              <option value="internship" <%= sel('employment_status','internship') %>>Magang</option>
+              <option value="freelance" <%= sel('employment_status','freelance') %>>Freelance</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Tipe Kerja</label>
+            <select name="employment_type" class="form-select">
+              <option value="full-time" <%= sel('employment_type','full-time') %>>Full-Time</option>
+              <option value="part-time" <%= sel('employment_type','part-time') %>>Part-Time</option>
+              <option value="remote" <%= sel('employment_type','remote') %>>Remote</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Tanggal Bergabung</label>
+            <input type="date" name="hire_date" class="form-control" value="<%= emp.hire_date ? new Date(emp.hire_date).toISOString().split('T')[0] : '' %>">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Akhir Kontrak</label>
+            <input type="date" name="contract_end_date" class="form-control" value="<%= emp.contract_end_date ? new Date(emp.contract_end_date).toISOString().split('T')[0] : '' %>">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 4: Keuangan -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-header bg-warning fw-semibold">
+        <i class="bi bi-cash-stack"></i> 4. Data Keuangan & Perbankan
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Gaji Pokok (Rp)</label>
+            <input type="number" name="salary" class="form-control" value="<%= v('salary') %>" min="0" step="1000">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Nama Bank</label>
+            <input type="text" name="bank_name" class="form-control" value="<%= v('bank_name') %>">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Nomor Rekening</label>
+            <input type="text" name="bank_account" class="form-control" value="<%= v('bank_account') %>">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Nama Pemilik Rekening</label>
+            <input type="text" name="bank_account_holder" class="form-control" value="<%= v('bank_account_holder') %>">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 5: Kontak Darurat -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-header bg-danger text-white fw-semibold">
+        <i class="bi bi-telephone-fill"></i> 5. Kontak Darurat
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Nama</label>
+            <input type="text" name="emergency_contact_name" class="form-control" value="<%= v('emergency_contact_name') %>">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Nomor Telepon</label>
+            <input type="text" name="emergency_contact_phone" class="form-control" value="<%= v('emergency_contact_phone') %>">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Hubungan</label>
+            <input type="text" name="emergency_contact_relation" class="form-control" value="<%= v('emergency_contact_relation') %>">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian 6: Foto & Status -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-header bg-secondary text-white fw-semibold">
+        <i class="bi bi-camera"></i> 6. Foto & Status
+      </div>
+      <div class="card-body">
+        <div class="row g-3 align-items-start">
+          <% if (emp.photo) { %>
+          <div class="col-md-2 text-center">
+            <label class="form-label fw-semibold">Foto Saat Ini</label>
+            <img src="<%= emp.photo %>" class="img-thumbnail d-block" style="max-height:100px;width:auto;margin:auto">
+          </div>
+          <% } %>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Ganti Foto</label>
+            <input type="file" name="photo" class="form-control" accept="image/jpeg,image/png,image/gif">
+            <small class="text-muted">JPG/PNG/GIF, maks 2MB. Kosongkan jika tidak diganti.</small>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">Status Karyawan</label>
+            <select name="status" class="form-select">
+              <option value="active" <%= sel('status','active') %>>Active</option>
+              <option value="inactive" <%= sel('status','inactive') %>>Inactive</option>
+              <option value="resigned" <%= sel('status','resigned') %>>Resigned</option>
+              <option value="terminated" <%= sel('status','terminated') %>>Terminated</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-semibold">Catatan</label>
+            <textarea name="notes" class="form-control" rows="2"><%= v('notes') %></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex gap-2 mb-4">
+      <button type="submit" class="btn btn-warning btn-lg"><i class="bi bi-save"></i> Update Karyawan</button>
+      <a href="/employees/<%= emp.id %>" class="btn btn-outline-secondary btn-lg">Batal</a>
+    </div>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>

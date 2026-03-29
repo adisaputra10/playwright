@@ -1,0 +1,28 @@
+services:
+  playwright:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ems_playwright
+    environment:
+      # When nodeapp runs in Docker (docker compose from repo root):
+      #   BASE_URL=http://ems-app:3000
+      # When nodeapp runs on the host machine (npm start):
+      #   BASE_URL=http://host.docker.internal:3000
+      - BASE_URL=http://ems-app:3000
+    extra_hosts:
+      # Needed on Linux hosts when pointing at host; harmless otherwise
+      - "host.docker.internal:host-gateway"
+    volumes:
+      # Persist test reports & artifacts outside the container
+      - ./playwright-report:/app/playwright-report
+      - ./test-results:/app/test-results
+    # Join the same network as the nodeapp so we can reach it by service name
+    networks:
+      - ems-network
+    # Container exits after tests finish
+    restart: "no"
+
+networks:
+  ems-network:
+    external: true   # created by docker compose up in the repo root

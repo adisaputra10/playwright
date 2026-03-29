@@ -1,0 +1,43 @@
+<%- include('../partials/header', {title: 'Login'}) %>
+<%- include('../partials/navbar') %>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-5 col-lg-4">
+      <div class="card border-0 shadow">
+        <div class="card-body p-4">
+          <h4 class="fw-bold text-center mb-1"><i class="bi bi-box-arrow-in-right text-primary"></i> Login</h4>
+          <p class="text-center text-muted small mb-4">Masuk ke sistem EMS</p>
+          <%- include('../partials/messages') %>
+          <form action="/login" method="POST">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Email</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                <input type="email" name="email" class="form-control" placeholder="email@example.com" required autofocus>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label class="form-label fw-semibold">Password</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                <input type="password" name="password" class="form-control" placeholder="Masukkan password" required>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">
+              <i class="bi bi-box-arrow-in-right"></i> Login
+            </button>
+          </form>
+        </div>
+        <div class="card-footer text-center bg-light py-3">
+          <small>Belum punya akun? <a href="/register" class="fw-semibold">Daftar Sekarang</a></small>
+        </div>
+      </div>
+      <div class="text-center mt-3">
+        <small class="text-muted">Default admin: <code>admin@example.com</code> / <code>admin123</code></small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
