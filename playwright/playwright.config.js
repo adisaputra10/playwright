@@ -20,11 +20,10 @@ module.exports = defineConfig({
   ],
   use: {
     baseURL: BASE_URL,
-    trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    trace: 'on',           // capture trace for every test
+    screenshot: 'on',      // capture screenshot for every test
+    video: 'on',           // record video for every test
     headless: true,
-    // Allow self-signed certs if needed
     ignoreHTTPSErrors: true,
   },
   projects: [
