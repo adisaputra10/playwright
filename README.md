@@ -136,6 +136,8 @@ npx playwright show-report playwright-report
 
 The report shows per-test status, duration, screenshots on failure, and trace files.
 
+![Example HTML Report](example-report.png)
+
 ---
 
 ## Debugging a Failing Test
