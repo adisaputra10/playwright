@@ -1,0 +1,17 @@
+{
+  "name": "ems-e2e-headless-browserless",
+  "version": "1.0.0",
+  "description": "Playwright E2E tests running against Browserless (remote headless Chrome)",
+  "scripts": {
+    "test": "playwright test",
+    "test:auth": "playwright test tests/auth.spec.js",
+    "test:dashboard": "playwright test tests/dashboard.spec.js",
+    "test:employees": "playwright test tests/employees.spec.js",
+    "test:users": "playwright test tests/users.spec.js",
+    "test:report": "npx playwright show-report playwright-report",
+    "install:browsers": "npx playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.51.0"
+  }
+}
